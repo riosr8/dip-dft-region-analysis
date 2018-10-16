@@ -1,7 +1,7 @@
-"""dip_hw2_dft.py: Starter file to run howework 2"""
+"""dip_hw3_dft.py: Starter file to run howework 2"""
 
-#Example Usage: ./dip_hw1_filter -i image -m mask
-#Example Usage: python dip_hw1_filter.py -i image -m mask
+#Example Usage: ./dip_hw3_filter -i image -m mask
+#Example Usage: python dip_hw3_filter.py -i image -m mask
 
 
 __author__      = "Pranav Mantini"
