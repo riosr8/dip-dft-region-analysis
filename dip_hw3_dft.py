@@ -1,7 +1,7 @@
-"""dip_hw2_dft.py: Starter file to run howework 2"""
+"""dip_hw3_dft.py: Starter file to run howework 3"""
 
-#Example Usage: ./dip_hw1_dft
-#Example Usage: python dip_hw1_dft
+#Example Usage: ./dip_hw3_dft
+#Example Usage: python dip_hw3_dft
 
 
 __author__      = "Pranav Mantini"
