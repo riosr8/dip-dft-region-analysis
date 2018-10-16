@@ -11,13 +11,13 @@ The input to your program is a 2D matrix of size 15X15.
   - DFT/DFT.py: Edit the functions "forward_transform", "inverse_transform", "discrete_cosine_tranform" and "magnitude", you are welcome to add more function.
   - For this part of the assignment, please implement your own code for all computations, do not use inbuilt functions like "fft" or "dft" from numpy, opencv or other libraries
   - Describe your method and findings in the report.md file
-  - This part of the assignment can be run using dip_hw2_dft.py (there is no need to edit this file)
+  - This part of the assignment can be run using dip_hw3_dft.py (there is no need to edit this file)
   - Usage: 
   
-        ./dip_hw1_dft  
-        python dip_hw1_dft.py
+        ./dip_hw3_dft  
+        python dip_hw3_dft.py
   - Please make sure your code runs when you run the above command from prompt/terminal
-  - Any output images or files must be saved to "output/" folder (dip_hw1_dft.py automatically does this)
+  - Any output images or files must be saved to "output/" folder (dip_hw3_dft.py automatically does this)
   
 -------------
 2. Frequency Filtering:
@@ -34,13 +34,13 @@ The input to your program is a 2D matrix of size 15X15.
 -  For this part of the assignment, You can use inbuilt functions to compute the fourier transform
 - For example, you are welcome to use fft and dft libraries that are available in numpy and opencv
 - Describe your method and findings in the report.md file
-- This part of the assignment can be run using dip_hw2_filter.py (there is no need to edit this file)
+- This part of the assignment can be run using dip_hw3_filter.py (there is no need to edit this file)
 - Usage: 
 
-      ./dip_hw1_filter -i image -m ideal_l -c 50
-      python dip_hw1_filter.py -i image -m ideal_l -c 50
+      ./dip_hw3_filter -i image -m ideal_l -c 50
+      python dip_hw3_filter.py -i image -m ideal_l -c 50
   - Please make sure your code runs when you run the above command from prompt/terminal
-  - Any output images or files must be saved to "output/" folder (dip_hw1_filter.py automatically does this)
+  - Any output images or files must be saved to "output/" folder (dip_hw3_filter.py automatically does this)
   
 -------------
 3. (2 Pts.) Describe your method and report you findings in report.md for each problem of the assignemnt.
@@ -53,11 +53,11 @@ If you do not like the structure, you are welcome to change the over all code, u
 
 1. the first part has to run using command
 
-  python dip_hw2_dft.py
+  python dip_hw3_dft.py
  
   and the second part using
   
-  python dip_hw2_filtering.py -i image-name -m ideal_l -c 50
+  python dip_hw3_filtering.py -i image-name -m ideal_l -c 50
   
 2. Any output file or image should be written to output/ folder
 
