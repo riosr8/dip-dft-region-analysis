@@ -4,7 +4,7 @@ Assignment #3
 Due: Thu 11/30/18 11:59 PM
 
 1. DFT:
-(8 Pts.) Write code for computing forward fourier transform, inverse fourier transform, discrete cosine transfrom and magnitude of the fourier transform. 
+(4 Pts.) Write code for computing forward fourier transform, inverse fourier transform, discrete cosine transfrom and magnitude of the fourier transform. 
 The input to your program is a 2D matrix of size 15X15.
 
   - Starter code available in directory DFT/
@@ -21,7 +21,7 @@ The input to your program is a 2D matrix of size 15X15.
   
 -------------
 2. Frequency Filtering:
-(15 Pts.) Write Code to perfrom image filtering in the frequency domain by modifying the DFT of images using different Masks. Filter images using six different filters ideal low pass (ideal_l), ideal high pass (ideal_h), butterworth low pass (butterworth_l), butterworth high pass (butterworth_h), gaussian low pass (gaussian_l) and gaussian high pass filter (gaussian_h). The input to your program is an image, name of the mask, cuttoff frequency and order(only for butterworth filter).
+(14 Pts.) Write Code to perfrom image filtering in the frequency domain by modifying the DFT of images using different Masks. Filter images using six different filters ideal low pass (ideal_l), ideal high pass (ideal_h), butterworth low pass (butterworth_l), butterworth high pass (butterworth_h), gaussian low pass (gaussian_l) and gaussian high pass filter (gaussian_h). The input to your program is an image, name of the mask, cuttoff frequency and order(only for butterworth filter).
 
 - Starter code available in directory DFT/ 
 - DFT/Filtering.py:
@@ -63,10 +63,10 @@ If you do not like the structure, you are welcome to change the over all code, u
 
 The TA will only be able to see your results if these two conditions are met
 
-1. DFT             - 8 Pts.
-2. Filtering       - 15 Pts.
+1. DFT             - 4 Pts.
+2. Filtering       - 14 Pts.
 3. Report          - 2 Pts
 
-    Total          - 25 Pts.
+    Total          - 20 Pts.
 
 ----------------------
