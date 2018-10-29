@@ -1,6 +1,7 @@
 # For this part of the assignment, You can use inbuilt functions to compute the fourier transform
 # You are welcome to use fft that are available in numpy and opencv
-
+import numpy as np
+import math as math
 
 class Filtering:
     image = None
@@ -8,7 +9,7 @@ class Filtering:
     cutoff = None
     order = None
 
-    def __init__(self, image, filter_name, cutoff, order = 0):
+    def __init__(self, image, filter_name, cutoff, order=0):
         """initializes the variables frequency filtering on an input image
         takes as input:
         image: the input image
@@ -40,9 +41,9 @@ class Filtering:
         shape: the shape of the mask to be generated
         cutoff: the cutoff frequency of the ideal filter
         returns a ideal low pass mask"""
-
-
-        return 0
+        (p, q) = shape
+        mask = np.array([[1 if math.sqrt(math.pow((u - (p / 2)), 2) + math.pow((v - (q / 2)), 2)) <= cutoff else 0 for v in range(q)] for u in range(p)])
+        return mask
 
 
     def get_ideal_high_pass_filter(self, shape, cutoff):
@@ -54,8 +55,8 @@ class Filtering:
 
         #Hint: May be one can use the low pass filter function to get a high pass mask
 
-        
-        return 0
+        mask = 1 - self.get_ideal_low_pass_filter(shape, cutoff)
+        return mask
 
     def get_butterworth_low_pass_filter(self, shape, cutoff, order):
         """Computes a butterworth low pass mask
@@ -65,8 +66,10 @@ class Filtering:
         order: the order of the butterworth filter
         returns a butterworth low pass mask"""
 
-        
-        return 0
+        (p, q) = shape
+        mask = np.array([[(1 / (1 + math.pow((math.sqrt(math.pow((u - (p / 2)), 2) + math.pow((v - (q / 2)), 2))/cutoff), 2 * order))) for v in range(q)] for u in range(p)])
+
+        return mask
 
     def get_butterworth_high_pass_filter(self, shape, cutoff, order):
         """Computes a butterworth high pass mask
@@ -78,8 +81,8 @@ class Filtering:
 
         #Hint: May be one can use the low pass filter function to get a high pass mask
 
-        
-        return 0
+        mask = 1 - self.get_butterworth_low_pass_filter(shape, cutoff, order)
+        return mask
 
     def get_gaussian_low_pass_filter(self, shape, cutoff):
         """Computes a gaussian low pass mask
@@ -88,8 +91,9 @@ class Filtering:
         cutoff: the cutoff frequency of the gaussian filter (sigma)
         returns a gaussian low pass mask"""
 
-        
-        return 0
+        (p, q) = shape
+        mask = np.array([[math.exp(-1 * (math.pow(math.sqrt(math.pow((u - (p / 2)), 2) + math.pow((v - (q / 2)), 2)), 2)/(2 * math.pow(cutoff, 2)))) for v in range(q)] for u in range(p)])
+        return mask
 
     def get_gaussian_high_pass_filter(self, shape, cutoff):
         """Computes a gaussian high pass mask
@@ -100,8 +104,8 @@ class Filtering:
 
         #Hint: May be one can use the low pass filter function to get a high pass mask
 
-        
-        return 0
+        mask = 1 - self.get_gaussian_low_pass_filter(shape, cutoff)
+        return mask
 
     def post_process_image(self, image):
         """Post process the image to create a full contrast stretch of the image
@@ -113,8 +117,13 @@ class Filtering:
         2. take negative (255 - fsimage)
         """
 
+        c_min = np.min(image)
+        c_max = np.max(image)
+        (h, w) = image.shape
 
-        return image
+        fsimage = np.array([[((image[i][j] - c_min) * (255 / (c_max - c_min))) for j in range(w)] for i in range(h)], dtype=np.uint8)
+
+        return fsimage
 
 
     def filtering(self):
@@ -137,7 +146,19 @@ class Filtering:
         filtered image, magnitude of DFT, magnitude of filtered DFT: Make sure all images being returned have grey scale full contrast stretch and dtype=uint8 
         """
 
+        image_fft = np.fft.fft2(self.image)
+        shifted_fft = np.fft.fftshift(image_fft)
 
+        if self.order > 0:
+            mask = self.filter(self.image.shape, self.cutoff, self.order)
+        else:
+            mask = self.filter(self.image.shape, self.cutoff)
 
+        filter_img = shifted_fft * mask
+        filter_img_res = np.uint8(np.log(np.absolute(filter_img)) * 10)
+        inverse_shift = np.fft.ifftshift(shifted_fft)
+        inverse_fft = np.fft.ifft2(inverse_shift)
+        magnitude = np.absolute(inverse_fft)
+        fsimage = self.post_process_image(magnitude)
 
-        return [self.image, self.image, self.image]
+        return [filter_img_res, magnitude, fsimage]
