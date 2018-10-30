@@ -3,7 +3,6 @@
 import numpy as np
 import math
 import cmath
-from scipy import fftpack
 
 class DFT:
 
