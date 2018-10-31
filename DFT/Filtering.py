@@ -117,11 +117,11 @@ class Filtering:
         2. take negative (255 - fsimage)
         """
 
-        c_min = np.min(image)
-        c_max = np.max(image)
+        min_gray_level = np.min(image)
+        max_gray_level = np.max(image)
         (h, w) = image.shape
 
-        fsimage = np.array([[((image[i][j] - c_min) * (255 / (c_max - c_min))) for j in range(w)] for i in range(h)], dtype=np.uint8)
+        fsimage = np.array([[(((255 - 1) / (max_gray_level - min_gray_level)) * (image[i][j] - min_gray_level)) for j in range(w)] for i in range(h)], dtype=np.uint8)
 
         return fsimage
 
@@ -146,19 +146,21 @@ class Filtering:
         filtered image, magnitude of DFT, magnitude of filtered DFT: Make sure all images being returned have grey scale full contrast stretch and dtype=uint8 
         """
 
-        image_fft = np.fft.fft2(self.image)
-        shifted_fft = np.fft.fftshift(image_fft)
-
         if self.order > 0:
             mask = self.filter(self.image.shape, self.cutoff, self.order)
         else:
             mask = self.filter(self.image.shape, self.cutoff)
 
-        filter_img = shifted_fft * mask
-        filter_img_res = np.uint8(np.log(np.absolute(filter_img)) * 10)
+        image_fft = np.fft.fft2(self.image)
+        shifted_fft = np.fft.fftshift(image_fft)
+        compressed_fft = np.uint8(np.log(np.absolute(shifted_fft)) * 10)
+
+        filtered_dft = shifted_fft * mask
+        compressed_filtered_fft = np.uint8(np.log(np.absolute(filtered_dft)) * 10)
+
         inverse_shift = np.fft.ifftshift(shifted_fft)
         inverse_fft = np.fft.ifft2(inverse_shift)
         magnitude = np.absolute(inverse_fft)
         fsimage = self.post_process_image(magnitude)
 
-        return [filter_img_res, magnitude, fsimage]
+        return [fsimage, compressed_fft, compressed_filtered_fft]
