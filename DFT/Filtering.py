@@ -158,7 +158,7 @@ class Filtering:
         filtered_dft = shifted_fft * mask
         compressed_filtered_fft = np.uint8(np.log(np.absolute(filtered_dft)) * 10)
 
-        inverse_shift = np.fft.ifftshift(shifted_fft)
+        inverse_shift = np.fft.ifftshift(filtered_dft)
         inverse_fft = np.fft.ifft2(inverse_shift)
         magnitude = np.absolute(inverse_fft)
         fsimage = self.post_process_image(magnitude)
